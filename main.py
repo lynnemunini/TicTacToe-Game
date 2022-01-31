@@ -4,6 +4,9 @@ from PyQt5 import QtCore, QtGui
 from PyQt5.QtGui import * 
 from PyQt5.QtCore import * 
 
+choice = input("X or O: ").capitalize()
+
+
 class Window(QWidget):
     def __init__(self):
         super().__init__()
@@ -13,23 +16,43 @@ class Window(QWidget):
         game_title = QLabel("TicTacToe")
         game_title.setFont(QFont("Helvetica [Cronyx]", 20, QFont.Bold))
         game_title.setAlignment(Qt.AlignCenter)
-        game_title.setStyleSheet("Qlabel"
-                             "{"
-                            #  "color : white;"
-                            #  "font-size: 100pt;"
-                             "}"
-                             )
         layout.addWidget(game_title, 0, 0, 1, 3)
         # Add widgets to the layout
         layout.setVerticalSpacing(10)   
 
-        # Button Layouts
+
+        # Font
+        r_one = QFont("RussoOne-Regular", 10, QFont.Bold) 
+
+        # Buttons
+        self.btn1 = QPushButton()
+        self.btn2 = QPushButton()
+        self.btn3 = QPushButton()
+        self.btn4 = QPushButton()
+        self.btn5 = QPushButton()
+        self.btn6 = QPushButton()
+        self.btn7 = QPushButton()
+        self.btn8 = QPushButton()
+        self.btn9 = QPushButton()        
+
+        buttons = [self.btn1, 
+                   self.btn2, 
+                   self.btn3, 
+                   self.btn4, 
+                   self.btn5,
+                   self.btn6,
+                   self.btn7,
+                   self.btn8,
+                   self.btn9]
+
         row = 1
-        column = 0
-        for btn in range(9):
-            button = QPushButton()     
+        column = 0 
+
+        # Button Layouts
+        for button in buttons: 
             button.setMinimumWidth(100)
             button.setMinimumHeight(100)
+            button.setFont(r_one)
             # adding background color to button
             # and background color to pressed button
             button.setStyleSheet("QPushButton"
@@ -41,12 +64,17 @@ class Window(QWidget):
                              "background-color : black;"
                              "}"
                              )
+                
             layout.addWidget(button, row, column)
+            # Set action to be performed on clicking                 
+            button.clicked.connect(self.on_click(button)) 
+            
             column += 1
             
             if column > 2:
                 row += 1
                 column = 0
+             
 
         status = QPushButton("You Won!")
 
@@ -81,6 +109,15 @@ class Window(QWidget):
         layout.addWidget(restart, 5, 0, 1, 3)
         # Set the layout on the application's window
         self.setLayout(layout)
+        
+
+    @pyqtSlot()
+    # Explicitly mark method as being a Qt slot
+    def on_click(self, button):
+        def click(self):
+            button.setText(choice)
+        return click
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
