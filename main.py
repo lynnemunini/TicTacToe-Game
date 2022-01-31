@@ -124,10 +124,27 @@ class Window(QWidget):
                              "background-color : white;"
                              "}")
             button.setText(choice)
-            dec_buttons_list.remove(button)
-            print(len(dec_buttons_list))
-            computer = random.choice(dec_buttons_list)
-            computer.setText("0")
+
+            # Disable clicking on button after clicking
+            button.setEnabled(False)
+
+            if len(dec_buttons_list) != 0:
+                dec_buttons_list.remove(button)
+            # print(len(dec_buttons_list))
+
+            try:
+                computer = random.choice(dec_buttons_list)
+
+                if choice == "X":
+                    computer.setText("O")
+                elif choice == "O":
+                    computer.setText("X")
+                    
+                computer.setEnabled(False)
+                dec_buttons_list.remove(computer)
+
+            except IndexError:
+                print("GAME OVER!!")
 
         return click
 
