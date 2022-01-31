@@ -10,11 +10,21 @@ class Window(QWidget):
         self.setWindowTitle("TicTacToe")
         # Create a QGridLayout instance
         layout = QGridLayout()
+        game_title = QLabel("TicTacToe")
+        game_title.setFont(QFont("Helvetica [Cronyx]", 20, QFont.Bold))
+        game_title.setAlignment(Qt.AlignCenter)
+        game_title.setStyleSheet("Qlabel"
+                             "{"
+                            #  "color : white;"
+                            #  "font-size: 100pt;"
+                             "}"
+                             )
+        layout.addWidget(game_title, 0, 0, 1, 3)
         # Add widgets to the layout
         layout.setVerticalSpacing(10)   
 
         # Button Layouts
-        row = 0
+        row = 1
         column = 0
         for btn in range(9):
             button = QPushButton()     
@@ -52,7 +62,7 @@ class Window(QWidget):
                              )
 
         status.setMinimumHeight(40)
-        layout.addWidget(status, 3, 0, 1, 3)
+        layout.addWidget(status, 4, 0, 1, 3)
         # Restart
         restart = QPushButton("Restart")
 
@@ -68,13 +78,14 @@ class Window(QWidget):
                         )
 
         restart.setMinimumHeight(40)
-        layout.addWidget(restart, 4, 0, 1, 3)
+        layout.addWidget(restart, 5, 0, 1, 3)
         # Set the layout on the application's window
         self.setLayout(layout)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setStyle('Fusion') 
+    # app.setFont(QFont("Times New Roman", 12))
     window = Window()
     window.show()
     sys.exit(app.exec_())
