@@ -3,8 +3,10 @@ from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtGui import * 
 from PyQt5.QtCore import * 
+import random
 
 choice = input("X or O: ").capitalize()
+dec_buttons_list = []
 
 
 class Window(QWidget):
@@ -64,18 +66,20 @@ class Window(QWidget):
                              "background-color : white;"
                              "}"
                              )
-                
+
+
             layout.addWidget(button, row, column)
+            dec_buttons_list.append(button)
+
             # Set action to be performed on clicking                 
             button.clicked.connect(self.on_click(button)) 
-            
+
             column += 1
             
             if column > 2:
                 row += 1
-                column = 0
-             
-
+                column = 0        
+            
         status = QPushButton("You Won!")
 
         status.setStyleSheet("QPushButton"
@@ -119,7 +123,11 @@ class Window(QWidget):
                              "{"
                              "background-color : white;"
                              "}")
-            button.setText(choice) 
+            button.setText(choice)
+            dec_buttons_list.remove(button)
+            print(len(dec_buttons_list))
+            computer = random.choice(dec_buttons_list)
+            computer.setText("0")
 
         return click
 
