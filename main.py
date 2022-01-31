@@ -22,7 +22,7 @@ class Window(QWidget):
 
 
         # Font
-        r_one = QFont("RussoOne-Regular", 10, QFont.Bold) 
+        font = QFont("RussoOne-Regular", 20, QFont.Bold) 
 
         # Buttons
         self.btn1 = QPushButton()
@@ -52,7 +52,7 @@ class Window(QWidget):
         for button in buttons: 
             button.setMinimumWidth(100)
             button.setMinimumHeight(100)
-            button.setFont(r_one)
+            button.setFont(font)
             # adding background color to button
             # and background color to pressed button
             button.setStyleSheet("QPushButton"
@@ -61,7 +61,7 @@ class Window(QWidget):
                              "}"
                              "QPushButton::pressed"
                              "{"
-                             "background-color : black;"
+                             "background-color : white;"
                              "}"
                              )
                 
@@ -115,14 +115,18 @@ class Window(QWidget):
     # Explicitly mark method as being a Qt slot
     def on_click(self, button):
         def click(self):
-            button.setText(choice)
+            button.setStyleSheet("QPushButton"
+                             "{"
+                             "background-color : white;"
+                             "}")
+            button.setText(choice) 
+
         return click
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setStyle('Fusion') 
-    # app.setFont(QFont("Times New Roman", 12))
     window = Window()
     window.show()
     sys.exit(app.exec_())
