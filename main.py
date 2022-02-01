@@ -63,6 +63,23 @@ class Window(QWidget):
         row = 1
         column = 0 
 
+        # Status Button
+        status = QPushButton("")
+
+        status.setStyleSheet("QPushButton"
+                             "{"
+                             "background-color : white;"
+                             "color : black;"
+                             "}"
+                             "QPushButton::hover"
+                             "{"
+                             "background-color : lightgreen;"
+                             "}"
+                             )
+
+        status.setMinimumHeight(40)
+        layout.addWidget(status, 4, 0, 1, 3)
+
         # Button Layouts
         for iteration, button in enumerate(buttons):    
             # print(iteration)
@@ -86,7 +103,7 @@ class Window(QWidget):
             dec_buttons_list.append(button)
 
             # Set action to be performed on clicking                 
-            button.clicked.connect(self.on_click(button, iteration, buttons)) 
+            button.clicked.connect(self.on_click(button, iteration, buttons, status)) 
 
             column += 1
             
@@ -94,21 +111,6 @@ class Window(QWidget):
                 row += 1
                 column = 0        
             
-        status = QPushButton("You Won!")
-
-        status.setStyleSheet("QPushButton"
-                             "{"
-                             "background-color : white;"
-                             "color : black;"
-                             "}"
-                             "QPushButton::hover"
-                             "{"
-                             "background-color : lightgreen;"
-                             "}"
-                             )
-
-        status.setMinimumHeight(40)
-        layout.addWidget(status, 4, 0, 1, 3)
         # Restart
         restart = QPushButton("Restart")
 
@@ -131,7 +133,7 @@ class Window(QWidget):
 
     @pyqtSlot()
     # Explicitly mark method as being a Qt slot
-    def on_click(self, button, iteration, buttons):
+    def on_click(self, button, iteration, buttons, status):
         def click(self):
             button.setStyleSheet("QPushButton"
                              "{"
@@ -144,34 +146,38 @@ class Window(QWidget):
             # Disabling buttons after clicking
             button.setEnabled(False)
             
-            test.horizontal_compare(buttons_dict, str(iteration), dec_buttons_list)
-            test.vertical_compare(buttons_dict, str(iteration), dec_buttons_list)
-            test.diagonal1_compare(buttons_dict, str(iteration), dec_buttons_list)
-            test.diagonal2_compare(buttons_dict, str(iteration), dec_buttons_list)
+            # test.horizontal_compare(buttons_dict, str(iteration), dec_buttons_list)
+            # test.vertical_compare(buttons_dict, str(iteration), dec_buttons_list)
+            # test.diagonal1_compare(buttons_dict, str(iteration), dec_buttons_list)
+            # test.diagonal2_compare(buttons_dict, str(iteration), dec_buttons_list)
 
             if len(dec_buttons_list) != 0:
                 dec_buttons_list.remove(button)
             # print(len(dec_buttons_list))
 
             try:
-                computer = random.choice(dec_buttons_list)
-                # Get the index of the random button in original buttons list
-                position = buttons.index(computer)
-                
-                if choice == "X":
-                    computer.setText("O")
-                    buttons_dict[f"button{position}"] = "O"
-                elif choice == "O":
-                    computer_choice = computer.setText("X")
-                    buttons_dict[f"button{position}"] = "X"
-                
-                test.horizontal_compare(buttons_dict, str(position), dec_buttons_list)
-                test.vertical_compare(buttons_dict, str(position), dec_buttons_list)
-                test.diagonal1_compare(buttons_dict, str(position), dec_buttons_list)
-                test.diagonal2_compare(buttons_dict, str(position), dec_buttons_list)
-                
-                computer.setEnabled(False)
-                dec_buttons_list.remove(computer)
+                if test.horizontal_compare(buttons_dict, str(iteration), dec_buttons_list, status) != True and \
+                test.vertical_compare(buttons_dict, str(iteration), dec_buttons_list, status) != True and \
+                test.diagonal1_compare(buttons_dict, str(iteration), dec_buttons_list, status) != True and \
+                test.diagonal2_compare(buttons_dict, str(iteration), dec_buttons_list, status) != True:
+                    computer = random.choice(dec_buttons_list)
+                    # Get the index of the random button in original buttons list
+                    position = buttons.index(computer)
+                    
+                    if choice == "X":
+                        computer.setText("O")
+                        buttons_dict[f"button{position}"] = "O"
+                    elif choice == "O":
+                        computer_choice = computer.setText("X")
+                        buttons_dict[f"button{position}"] = "X"
+                    
+                    test.horizontal_compare(buttons_dict, str(position), dec_buttons_list, status)
+                    test.vertical_compare(buttons_dict, str(position), dec_buttons_list, status)
+                    test.diagonal1_compare(buttons_dict, str(position), dec_buttons_list, status)
+                    test.diagonal2_compare(buttons_dict, str(position), dec_buttons_list, status)
+                    
+                    computer.setEnabled(False)
+                    dec_buttons_list.remove(computer)
 
             except:
                 print("DRAW!!...GAME OVER!!")
