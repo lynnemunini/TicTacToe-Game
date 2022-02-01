@@ -1,27 +1,46 @@
-def compare():
-    if self.btn1.text() == self.btn2.text() == self.btn3.text():
-        print(f"{self.btn1.text()} Won!")
-        game_over = True
+class Test:
+    # Class responsible for testing if there's a winner
+    def horizontal_compare(self, dictionary, position, dec_buttons_list):
+        if position == "0" or position == "3" or position == "6":
+            btn1 = position
+            btn2 = str(int(position) + 1)
+            btn3 = str(int(position) + 2)
+            if dictionary["button" + btn1] == dictionary["button" + btn2] == dictionary["button" + btn3]:
+                print(f"{dictionary['button' + btn1]} Won!")
 
-    elif self.btn4.text() == self.btn5.text() == self.btn6.text():
-        print(f"{self.btn4.text()} Won!")
-        game_over = True
+        elif position == "1" or position == "4" or position == "7":
+            btn1 = position
+            btn2 = str(int(position) - 1)
+            btn3 = str(int(position) + 1)
+            if dictionary["button" + btn1] == dictionary["button" + btn2] == dictionary["button" + btn3]:
+                print(f"{dictionary['button' + btn1]} Won!")
 
-    elif self.btn7.text() == self.btn8.text() == self.btn9.text():
-        print(f"{self.btn4.text()} Won!")
-        game_over = True
+        elif position == "2" or position == "5" or position == "8":
+            btn1 = position
+            btn2 = str(int(position) - 1)
+            btn3 = str(int(position) - 2)
+            if dictionary["button" + btn1] == dictionary["button" + btn2] == dictionary["button" + btn3]:
+                print(f"{dictionary['button' + btn1]} Won!")
 
-    elif self.btn3.text() == self.btn5.text() == self.btn7.text():
-        print(f"{self.btn3.text()} Won!")
-        game_over = True
 
-    elif self.btn1.text() == self.btn5.text() == self.btn9.text():
-        print(f"{self.btn1.text()} Won!")
-        game_over = True
+    def vertical_compare(self, dictionary, position, dec_buttons_list):
+        if position == "0" or position == "1" or position == "2":
+            btn1 = position
+            btn2 = str(int(position) + 3)
+            btn3 = str(int(position) + 6)
+            if dictionary["button" + btn1] == dictionary["button" + btn2] == dictionary["button" + btn3]:
+                print(f"{dictionary['button' + btn1]} Won!")
 
-    else:
-        if len(dec_buttons_list) == 0:
-            print("Draw!!")
-            game_over = True
+        elif position == "3" or position == "4" or position == "5":
+            btn1 = position
+            btn2 = str(int(position) - 3)
+            btn3 = str(int(position) + 3)
+            if dictionary["button" + btn1] == dictionary["button" + btn2] == dictionary["button" + btn3]:
+                print(f"{dictionary['button' + btn1]} Won!")
 
-    return game_over
+        elif position == "6" or position == "7" or position == "8":
+            btn1 = position
+            btn2 = str(int(position) - 3)
+            btn3 = str(int(position) - 6)
+            if dictionary["button" + btn1] == dictionary["button" + btn2] == dictionary["button" + btn3]:
+                print(f"{dictionary['button' + btn1]} Won!")

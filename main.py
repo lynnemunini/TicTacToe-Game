@@ -4,11 +4,23 @@ from PyQt5 import QtCore, QtGui
 from PyQt5.QtGui import * 
 from PyQt5.QtCore import * 
 import random
+from test import Test
+
+test = Test()
 
 choice = input("X or O: ").capitalize()
 dec_buttons_list = []
-buttons_dict = {}
-
+buttons_dict = {
+    'button0': '',
+    'button1': '',
+    'button2': '',
+    'button3': '',
+    'button4': '',
+    'button5': '',
+    'button6': '',
+    'button7': '',
+    'button8': ''
+}
 
 class Window(QWidget):
     def __init__(self):
@@ -131,6 +143,9 @@ class Window(QWidget):
 
             # Disabling buttons after clicking
             button.setEnabled(False)
+            
+            test.horizontal_compare(buttons_dict, str(iteration), dec_buttons_list)
+            test.vertical_compare(buttons_dict, str(iteration), dec_buttons_list)
 
             if len(dec_buttons_list) != 0:
                 dec_buttons_list.remove(button)
@@ -148,13 +163,15 @@ class Window(QWidget):
                     computer_choice = computer.setText("X")
                     buttons_dict[f"button{position}"] = "X"
                 
-    
+                test.horizontal_compare(buttons_dict, str(position), dec_buttons_list)
+                test.vertical_compare(buttons_dict, str(position), dec_buttons_list)
+                
                 computer.setEnabled(False)
                 dec_buttons_list.remove(computer)
 
-            except IndexError:
-                print("GAME OVER!!")
-                print(buttons_dict)
+            except:
+                print("DRAW!!...GAME OVER!!")
+                # print(buttons_dict)
 
         return click
 
