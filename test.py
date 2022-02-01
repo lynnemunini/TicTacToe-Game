@@ -56,3 +56,59 @@ class Test:
                 print(f"{dictionary['button' + btn1]} Won!")
                 for button in dec_buttons_list:
                     button.setEnabled(False)
+
+    def diagonal1_compare(self, dictionary, position, dec_buttons_list):
+        if position == "0":
+            btn1 = position
+            btn2 = str(int(position) + 4)
+            btn3 = str(int(position) + 8)
+            if dictionary["button" + btn1] == dictionary["button" + btn2] == dictionary["button" + btn3]:
+                print(f"{dictionary['button' + btn1]} Won!")
+                for button in dec_buttons_list:
+                    button.setEnabled(False)
+
+        elif position == "4":
+            btn1 = position
+            btn2 = str(int(position) - 4)
+            btn3 = str(int(position) + 4)
+            if dictionary["button" + btn1] == dictionary["button" + btn2] == dictionary["button" + btn3]:
+                print(f"{dictionary['button' + btn1]} Won!")
+                for button in dec_buttons_list:
+                    button.setEnabled(False)
+
+        elif position == "8":
+            btn1 = position
+            btn2 = str(int(position) - 4)
+            btn3 = str(int(position) - 8)
+            if dictionary["button" + btn1] == dictionary["button" + btn2] == dictionary["button" + btn3]:
+                print(f"{dictionary['button' + btn1]} Won!")
+                for button in dec_buttons_list:
+                    button.setEnabled(False)
+
+    def diagonal2_compare(self, dictionary, position, dec_buttons_list):
+        if position == "2":
+            btn1 = position
+            btn2 = str(int(position) + 2)
+            btn3 = str(int(position) + 4)
+            if dictionary["button" + btn1] == dictionary["button" + btn2] == dictionary["button" + btn3]:
+                print(f"{dictionary['button' + btn1]} Won!")
+                for button in dec_buttons_list:
+                    button.setEnabled(False)
+
+        elif position == "4":
+            btn1 = position
+            btn2 = str(int(position) - 2)
+            btn3 = str(int(position) + 2)
+            if dictionary["button" + btn1] == dictionary["button" + btn2] == dictionary["button" + btn3]:
+                print(f"{dictionary['button' + btn1]} Won!")
+                for button in dec_buttons_list:
+                    button.setEnabled(False)
+
+        elif position == "6":
+            btn1 = position
+            btn2 = str(int(position) - 2)
+            btn3 = str(int(position) - 4)
+            if dictionary["button" + btn1] == dictionary["button" + btn2] == dictionary["button" + btn3]:
+                print(f"{dictionary['button' + btn1]} Won!")
+                for button in dec_buttons_list:
+                    button.setEnabled(False)

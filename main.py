@@ -146,6 +146,8 @@ class Window(QWidget):
             
             test.horizontal_compare(buttons_dict, str(iteration), dec_buttons_list)
             test.vertical_compare(buttons_dict, str(iteration), dec_buttons_list)
+            test.diagonal1_compare(buttons_dict, str(iteration), dec_buttons_list)
+            test.diagonal2_compare(buttons_dict, str(iteration), dec_buttons_list)
 
             if len(dec_buttons_list) != 0:
                 dec_buttons_list.remove(button)
@@ -165,6 +167,8 @@ class Window(QWidget):
                 
                 test.horizontal_compare(buttons_dict, str(position), dec_buttons_list)
                 test.vertical_compare(buttons_dict, str(position), dec_buttons_list)
+                test.diagonal1_compare(buttons_dict, str(position), dec_buttons_list)
+                test.diagonal2_compare(buttons_dict, str(position), dec_buttons_list)
                 
                 computer.setEnabled(False)
                 dec_buttons_list.remove(computer)
