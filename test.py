@@ -7,6 +7,8 @@ class Test:
             btn3 = str(int(position) + 2)
             if dictionary["button" + btn1] == dictionary["button" + btn2] == dictionary["button" + btn3]:
                 print(f"{dictionary['button' + btn1]} Won!")
+                for button in dec_buttons_list:
+                    button.setEnabled(False)
 
         elif position == "1" or position == "4" or position == "7":
             btn1 = position
@@ -14,6 +16,8 @@ class Test:
             btn3 = str(int(position) + 1)
             if dictionary["button" + btn1] == dictionary["button" + btn2] == dictionary["button" + btn3]:
                 print(f"{dictionary['button' + btn1]} Won!")
+                for button in dec_buttons_list:
+                    button.setEnabled(False)
 
         elif position == "2" or position == "5" or position == "8":
             btn1 = position
@@ -21,6 +25,8 @@ class Test:
             btn3 = str(int(position) - 2)
             if dictionary["button" + btn1] == dictionary["button" + btn2] == dictionary["button" + btn3]:
                 print(f"{dictionary['button' + btn1]} Won!")
+                for button in dec_buttons_list:
+                    button.setEnabled(False)
 
 
     def vertical_compare(self, dictionary, position, dec_buttons_list):
@@ -30,6 +36,8 @@ class Test:
             btn3 = str(int(position) + 6)
             if dictionary["button" + btn1] == dictionary["button" + btn2] == dictionary["button" + btn3]:
                 print(f"{dictionary['button' + btn1]} Won!")
+                for button in dec_buttons_list:
+                    button.setEnabled(False)
 
         elif position == "3" or position == "4" or position == "5":
             btn1 = position
@@ -37,6 +45,8 @@ class Test:
             btn3 = str(int(position) + 3)
             if dictionary["button" + btn1] == dictionary["button" + btn2] == dictionary["button" + btn3]:
                 print(f"{dictionary['button' + btn1]} Won!")
+                for button in dec_buttons_list:
+                    button.setEnabled(False)
 
         elif position == "6" or position == "7" or position == "8":
             btn1 = position
@@ -44,3 +54,5 @@ class Test:
             btn3 = str(int(position) - 6)
             if dictionary["button" + btn1] == dictionary["button" + btn2] == dictionary["button" + btn3]:
                 print(f"{dictionary['button' + btn1]} Won!")
+                for button in dec_buttons_list:
+                    button.setEnabled(False)
