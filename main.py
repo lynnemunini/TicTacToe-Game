@@ -131,6 +131,7 @@ class Window(QWidget):
                         )
 
         restart.setMinimumHeight(40)
+        restart.clicked.connect(self.reset_game) 
         layout.addWidget(restart, 5, 0, 1, 3)
         # Set the layout on the application's window
         self.setLayout(layout)
@@ -187,6 +188,10 @@ class Window(QWidget):
 
         return click
 
+    def reset_game(self):
+        QtCore.QCoreApplication.quit()
+        status = QtCore.QProcess.startDetached(sys.executable, sys.argv)
+        # print(status)
 
 
 if __name__ == "__main__":
