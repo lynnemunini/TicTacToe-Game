@@ -67,15 +67,18 @@ class Window(QWidget):
 
         # Status Button
         status = QPushButton("")
+        status.setFont(QFont("Helvetica [Cronyx]", 12, QFont.Bold))
 
-        status.setStyleSheet("QPushButton"
+        status.setStyleSheet(
+                             "QPushButton"
                              "{"
-                             "background-color : white;"
+                             "background-color : lightgreen;"
                              "color : black;"
                              "}"
                              "QPushButton::hover"
                              "{"
-                             "background-color : lightgreen;"
+                             "background-color : white;"
+                             "color : lightgreen;"
                              "}"
                              )
 
