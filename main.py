@@ -189,6 +189,7 @@ class Window(QWidget):
         return click
 
     def reset_game(self):
+        # Restart the QApplication
         QtCore.QCoreApplication.quit()
         status = QtCore.QProcess.startDetached(sys.executable, sys.argv)
         # print(status)
