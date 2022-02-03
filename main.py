@@ -180,7 +180,7 @@ class Window(QWidget):
                         dec_buttons_list.remove(computer)
 
                 except:
-                    print("DRAW!!...GAME OVER!!")          
+                    status.setText("DRAW!!...GAME OVER!!")          
 
         return click
 
