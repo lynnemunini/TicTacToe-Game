@@ -7,6 +7,7 @@ import random
 from test import Test
 
 test = Test()
+choice = input("X or O ").capitalize()
 
 dec_buttons_list = []
 buttons_dict = {
@@ -27,26 +28,15 @@ class Window(QWidget):
         self.setWindowTitle("TicTacToe")
         # Create a QGridLayout instance
         layout = QGridLayout()
-        player_layout = QHBoxLayout()
-        player_layout.setSpacing(10)
-        player_layout.setContentsMargins(10, 20, 10, 20)
-        # game_title = QLabel("TicTacToe")
-        # game_title.setFont(QFont("Helvetica [Cronyx]", 20, QFont.Bold))
-        # game_title.setAlignment(Qt.AlignCenter)
 
-        self.player_x = QPushButton("Play as X")
-        self.player_x.setCheckable(True)  
-        self.player_o = QPushButton("Play as O")
-        self.player_o.setCheckable(True)  
+        game_title = QLabel("TicTacToe")
+        game_title.setFont(QFont("Helvetica [Cronyx]", 20, QFont.Bold))
+        game_title.setAlignment(Qt.AlignCenter)
 
-        player_layout.addWidget(self.player_x)
-        player_layout.addWidget(self.player_o)
-        # layout.addWidget(game_title, 0, 0, 1, 3)
+        layout.addWidget(game_title, 0, 0, 1, 3)
         # Add widgets to the layout
         layout.setVerticalSpacing(10)  
-        layout.addLayout(player_layout, 0, 0, 1, 3) 
-
-
+        
         # Font
         font = QFont("RussoOne-Regular", 20, QFont.Bold) 
 
@@ -73,10 +63,6 @@ class Window(QWidget):
 
         row = 1
         column = 0 
-
-        # On clicking player to play with
-        self.player_x.clicked.connect(lambda:self.player_click(self.player_x.text()))
-        self.player_o.clicked.connect(lambda:self.player_click(self.player_o.text()))
 
         # Status Button
         status = QPushButton("")
@@ -145,18 +131,12 @@ class Window(QWidget):
         # Set the layout on the application's window
         self.setLayout(layout)
 
-    
-    def player_click(self, player):
-        if self.player_x.isChecked():
-            self.choice = "X"
-        elif self.player_o.isChecked():
-            self.choice == "O"
 
     # Explicitly mark method as being a Qt slot
     @pyqtSlot()
     def on_click(self, button, iteration, buttons, status):
         def click(self):
-                choice = self.choice
+                # choice = self.choice
                 button.setStyleSheet("QPushButton"
                                 "{"
                                 "background-color : white;"
@@ -170,14 +150,9 @@ class Window(QWidget):
                 # Disabling buttons after clicking
                 button.setEnabled(False)
                 
-                # test.horizontal_compare(buttons_dict, str(iteration), dec_buttons_list)
-                # test.vertical_compare(buttons_dict, str(iteration), dec_buttons_list)
-                # test.diagonal1_compare(buttons_dict, str(iteration), dec_buttons_list)
-                # test.diagonal2_compare(buttons_dict, str(iteration), dec_buttons_list)
 
                 if len(dec_buttons_list) != 0:
                     dec_buttons_list.remove(button)
-                # print(len(dec_buttons_list))
 
                 try:
                     if test.horizontal_compare(buttons_dict, str(iteration), dec_buttons_list, status) != True and \
@@ -204,9 +179,7 @@ class Window(QWidget):
                         dec_buttons_list.remove(computer)
 
                 except:
-                    print("DRAW!!...GAME OVER!!")
-                    # print(buttons_dict)
-            
+                    print("DRAW!!...GAME OVER!!")          
 
         return click
 
