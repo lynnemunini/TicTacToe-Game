@@ -7,7 +7,8 @@ import random
 from test import Test
 
 test = Test()
-choice = input("X or O ").capitalize()
+players = ["X", "O"]
+choice = random.choice(players)
 
 dec_buttons_list = []
 buttons_dict = {
@@ -29,7 +30,7 @@ class Window(QWidget):
         # Create a QGridLayout instance
         layout = QGridLayout()
 
-        game_title = QLabel("TicTacToe")
+        game_title = QLabel(f"You are {choice}!")
         game_title.setFont(QFont("Helvetica [Cronyx]", 20, QFont.Bold))
         game_title.setAlignment(Qt.AlignCenter)
 
