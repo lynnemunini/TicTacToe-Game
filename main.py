@@ -8,7 +8,6 @@ from test import Test
 
 test = Test()
 
-choice = input("X or O: ").capitalize()
 dec_buttons_list = []
 buttons_dict = {
     'button0': '',
@@ -28,12 +27,24 @@ class Window(QWidget):
         self.setWindowTitle("TicTacToe")
         # Create a QGridLayout instance
         layout = QGridLayout()
-        game_title = QLabel("TicTacToe")
-        game_title.setFont(QFont("Helvetica [Cronyx]", 20, QFont.Bold))
-        game_title.setAlignment(Qt.AlignCenter)
-        layout.addWidget(game_title, 0, 0, 1, 3)
+        player_layout = QHBoxLayout()
+        player_layout.setSpacing(10)
+        player_layout.setContentsMargins(10, 20, 10, 20)
+        # game_title = QLabel("TicTacToe")
+        # game_title.setFont(QFont("Helvetica [Cronyx]", 20, QFont.Bold))
+        # game_title.setAlignment(Qt.AlignCenter)
+
+        self.player_x = QPushButton("Play as X")
+        self.player_x.setCheckable(True)  
+        self.player_o = QPushButton("Play as O")
+        self.player_o.setCheckable(True)  
+
+        player_layout.addWidget(self.player_x)
+        player_layout.addWidget(self.player_o)
+        # layout.addWidget(game_title, 0, 0, 1, 3)
         # Add widgets to the layout
-        layout.setVerticalSpacing(10)   
+        layout.setVerticalSpacing(10)  
+        layout.addLayout(player_layout, 0, 0, 1, 3) 
 
 
         # Font
@@ -62,6 +73,10 @@ class Window(QWidget):
 
         row = 1
         column = 0 
+
+        # On clicking player to play with
+        self.player_x.clicked.connect(lambda:self.player_click(self.player_x.text()))
+        self.player_o.clicked.connect(lambda:self.player_click(self.player_o.text()))
 
         # Status Button
         status = QPushButton("")
@@ -129,61 +144,72 @@ class Window(QWidget):
         layout.addWidget(restart, 5, 0, 1, 3)
         # Set the layout on the application's window
         self.setLayout(layout)
-    
 
-    @pyqtSlot()
+    
+    def player_click(self, player):
+        if self.player_x.isChecked():
+            self.choice = "X"
+        elif self.player_o.isChecked():
+            self.choice == "O"
+
     # Explicitly mark method as being a Qt slot
+    @pyqtSlot()
     def on_click(self, button, iteration, buttons, status):
         def click(self):
-            button.setStyleSheet("QPushButton"
-                             "{"
-                             "background-color : white;"
-                             "}")
-            button.setText(choice)
-            buttons_dict[f"button{iteration}"] = choice
+                choice = self.choice
+                button.setStyleSheet("QPushButton"
+                                "{"
+                                "background-color : white;"
+                                "}")
 
 
-            # Disabling buttons after clicking
-            button.setEnabled(False)
+                button.setText(choice)
+                buttons_dict[f"button{iteration}"] = choice
+
+
+                # Disabling buttons after clicking
+                button.setEnabled(False)
+                
+                # test.horizontal_compare(buttons_dict, str(iteration), dec_buttons_list)
+                # test.vertical_compare(buttons_dict, str(iteration), dec_buttons_list)
+                # test.diagonal1_compare(buttons_dict, str(iteration), dec_buttons_list)
+                # test.diagonal2_compare(buttons_dict, str(iteration), dec_buttons_list)
+
+                if len(dec_buttons_list) != 0:
+                    dec_buttons_list.remove(button)
+                # print(len(dec_buttons_list))
+
+                try:
+                    if test.horizontal_compare(buttons_dict, str(iteration), dec_buttons_list, status) != True and \
+                    test.vertical_compare(buttons_dict, str(iteration), dec_buttons_list, status) != True and \
+                    test.diagonal1_compare(buttons_dict, str(iteration), dec_buttons_list, status) != True and \
+                    test.diagonal2_compare(buttons_dict, str(iteration), dec_buttons_list, status) != True:
+                        computer = random.choice(dec_buttons_list)
+                        # Get the index of the random button in original buttons list
+                        position = buttons.index(computer)
+                        
+                        if choice == "X":
+                            computer.setText("O")
+                            buttons_dict[f"button{position}"] = "O"
+                        elif choice == "O":
+                            computer_choice = computer.setText("X")
+                            buttons_dict[f"button{position}"] = "X"
+                        
+                        test.horizontal_compare(buttons_dict, str(position), dec_buttons_list, status)
+                        test.vertical_compare(buttons_dict, str(position), dec_buttons_list, status)
+                        test.diagonal1_compare(buttons_dict, str(position), dec_buttons_list, status)
+                        test.diagonal2_compare(buttons_dict, str(position), dec_buttons_list, status)
+                        
+                        computer.setEnabled(False)
+                        dec_buttons_list.remove(computer)
+
+                except:
+                    print("DRAW!!...GAME OVER!!")
+                    # print(buttons_dict)
             
-            # test.horizontal_compare(buttons_dict, str(iteration), dec_buttons_list)
-            # test.vertical_compare(buttons_dict, str(iteration), dec_buttons_list)
-            # test.diagonal1_compare(buttons_dict, str(iteration), dec_buttons_list)
-            # test.diagonal2_compare(buttons_dict, str(iteration), dec_buttons_list)
-
-            if len(dec_buttons_list) != 0:
-                dec_buttons_list.remove(button)
-            # print(len(dec_buttons_list))
-
-            try:
-                if test.horizontal_compare(buttons_dict, str(iteration), dec_buttons_list, status) != True and \
-                test.vertical_compare(buttons_dict, str(iteration), dec_buttons_list, status) != True and \
-                test.diagonal1_compare(buttons_dict, str(iteration), dec_buttons_list, status) != True and \
-                test.diagonal2_compare(buttons_dict, str(iteration), dec_buttons_list, status) != True:
-                    computer = random.choice(dec_buttons_list)
-                    # Get the index of the random button in original buttons list
-                    position = buttons.index(computer)
-                    
-                    if choice == "X":
-                        computer.setText("O")
-                        buttons_dict[f"button{position}"] = "O"
-                    elif choice == "O":
-                        computer_choice = computer.setText("X")
-                        buttons_dict[f"button{position}"] = "X"
-                    
-                    test.horizontal_compare(buttons_dict, str(position), dec_buttons_list, status)
-                    test.vertical_compare(buttons_dict, str(position), dec_buttons_list, status)
-                    test.diagonal1_compare(buttons_dict, str(position), dec_buttons_list, status)
-                    test.diagonal2_compare(buttons_dict, str(position), dec_buttons_list, status)
-                    
-                    computer.setEnabled(False)
-                    dec_buttons_list.remove(computer)
-
-            except:
-                print("DRAW!!...GAME OVER!!")
-                # print(buttons_dict)
 
         return click
+
 
 
 if __name__ == "__main__":
